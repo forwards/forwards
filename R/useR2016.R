@@ -1,0 +1,246 @@
+#' Data From useR! 2016 Survey
+#'
+#' This data set contains results from a survey of useR! 2016 attendees
+#' conducted by Forwards. Modifications made to anonymise the data are noted in
+#'  Details.
+#'
+#' This data set contains responses to the following questions from the survey
+#' of useR! 2016 attendees:
+#' \describe{
+#'     \item{Q2}{What is your gender?}
+#'     \item{Q3}{In what year were you born?}
+#'     \item{Q7}{What is the highest level of education you have completed?}
+#'     \item{Q8}{What is your current (primary) employment status?}
+#'     \item{Q11}{How long have you been using R for?}
+#'     \item{Q12}{Did you have previous programming experience before beginning to use R?}
+#'     \item{Q13}{Which of the following do you do? Tick any that apply.
+#'     (Responses stored in \code{Q13} to \code{Q13_F}.)
+#'         \itemize{
+#'             \item I use functions from existing R packages to analyze data
+#'             \item I write R code designed to make my work easier, such as loops or
+#'         conditionals or functions
+#'             \item I write R functions for use by myself or my collaborators
+#'             \item I contribute to R packages (on CRAN or elsewhere)
+#'             \item I have written my own R package
+#'             \item I have written my own R package and released it on CRAN or
+#'     Bioconductor (or shared it on GitHub, R-Forge or similar platforms)
+#'     }}
+#'     \item{Q14}{Do you use R:
+#'         \itemize{
+#'             \item Primarily as part of a job or educational course;
+#'             \item Primarily as a recreational activity, in your free time;
+#'             \item For both recreational and job/educational purposes.
+#'     }}
+#'     \item{Q15}{How much do you agree or disagree with the following statements?
+#' (Responses stored in \code{Q15} to \code{Q15_D}.)
+#'         \itemize{
+#'             \item Writing R is fun
+#'             \item Writing R is considered cool or interesting by my peers
+#'             \item Writing R is a monotonous task
+#'             \item Writing R is difficult
+#'     }}
+#'     \item{Q16}{Would you recommend R to friends or colleagues as a programming
+#'     language to learn?}
+#'     \item{Q17}{What would be your number one argument for/against learning R?
+#'     (fixed responses in \code{Q17}, other specified responses in \code{Q17_B})}
+#'     \item{Q18}{Do you consider yourself part of the R community?}
+#'     \item{Q19}{Which of the following resources do you use for support?
+#'     Select all that apply. (Fixed responses stored in \code{Q19} to \code{Q19_G},
+#'     other specified responses in \code{Q19_H}.)
+#'         \itemize{
+#'             \item The R mailing lists
+#'             \item The #rstats hashtag on Twitter
+#'             \item The R StackOverflow queues
+#'             \item The R IRC channel
+#'             \item The rOpenSci mailing lists or chat forums
+#'             \item The Bioconductor support site
+#'             \item Other (please specify)
+#'     }}
+#'     \item{Q20}{What would be your preferred medium for R community news (e.g.
+#'     events, webinars, opportunities)? (Fixed responses in \code{Q20}, other
+#'     specified responses in \code{Q20_B}.)}
+#'     \item{Q21}{Do you attend R user group meetings in your local area?}
+#'     \item{Q22}{If you do: what type of user group is it? (Fixed responses
+#'     in \code{Q22}, other specified responses in \code{Q22_B}.)}
+#'     \item{Q23}{If you do not: why not?}
+#'     \item{Q24}{Which of the following would make you more likely to participate
+#'     in the R community, or improve your experience? Tick any that apply. (Fixed
+#'     responses stored in \code{Q24} to \code{Q24_L}.)}
+#' }
+#' Various measures were taken to protect anonymity
+#' of the respondents and avoid disclosure of sensitive information. In
+#' particular the following questions/variables are completely excluded:
+#' \describe{
+#'         \item{Q1}{What did you register as at useR! 2016?}
+#'         \item{Q4}{To what racial or ethnic group(s) do you identify?}
+#'         \item{Q5}{In what country do you currently reside?}
+#'         \item{Q6}{Do you identify as LGBT (Lesbian, Gay, Bisexual, Asexual
+#'         and/or Transgender)?}
+#'         \item{Q9}{Is your current job:
+#'         \itemize{
+#'             \item Full-time
+#'             \item Part-time
+#'             \item I am not currently employed
+#'        }}
+#'        \item{Q10}{Are you a caregiver for children or adult dependents on a
+#'        regular basis?}
+#'        \item{Q23_B}{Specific reason for not attending a user group}
+#'        \item{Q24_M}{Specific location/demographic/domain/language etc for which
+#'        the respondent would like a user group/workshop/other support}
+#'        \item{Q25}{What other ideas do you have for improving the R community?}
+#'        \item{Q26}{Do you have any feedback for the survey authors?}
+#' }
+#' Summaries of all these variables have been presented in blog posts
+#'  (see references). Q1, Q9 and Q10 were used in multivariate analyses (see
+#' references) but Q9 and Q10 did not feature in the interpretation and Q1 has
+#' inconsistencies with Q8. For the latter we give priority to Q8, the
+#' employment status of respondents at the time they completed the survey.
+#'
+#' Of the remaining variables, we consider Q2, Q3, Q7, Q8, Q11, and Q13_F to be
+#' implicit identifiers (key variables). These variables were modified to
+#' achieve 3-anonymity, i.e. the smallest subgroup identifiable from
+#' combinations of these variables is at least of size 3. In particular, the
+#' following modifications were made
+#' \describe{
+#'     \item{Q2}{Non-binary grouped with missing; all other key variables for
+#'     this group suppressed (set to NA).}
+#'     \item{Q3}{Year of birth converted to approximate age groups: "> 35" and
+#'     "35 and under"; age group suppressed for 14 individuals.}
+#'     \item{Q7}{Highest education level aggregated to two groups:
+#'     "Doctorate/Professional" and "Masters and under"; highest education level
+#'     suppressed for 3 individuals.}
+#'     \item{Q8}{Employment status aggregated to three groups: "Non-academic"
+#'     (includes employment in industry, government, non-profit, self-employed)
+#'     and "Academic" (includes retired, unemployed, student).}
+#'     \item{Q11}{Length of R usage aggregated to four groups: combined groups
+#'     corresponding to shortest times into "< 2 years" group.}
+#'     \item{Q13_F}{Suppressed for two individuals.}
+#' }
+#' In addition specific values containing personal/personally identifiable
+#' information were suppressed in Q19_H, Q22_B and Q23_B.
+#' @format A data frame with 449 records and 48 variables:
+#' \describe{
+#'     \item{\code{Q2}}{A factor with 3 levels: "Man", "Non-Binary/Unknown", "Woman".}
+#'     \item{\code{Q3}}{A factor with 2 levels: "> 35", "35 or under"}
+#'     \item{\code{Q7}}{A factor with 2 levels: "Doctorate/Professional", "Masters or lower"}
+#'     \item{\code{Q8}}{A factor with 2 levels: "Non-academic", "Academic"}
+#'     \item{\code{Q11}}{A factor with 4 levels: "< 2 years",  "2-5 years",
+#'     "5-10 years", "> 10 years"}
+#'     \item{\code{Q12}}{A factor with 2 levels: "Yes", "No"}
+#'     \item{\code{Q13}}{A character vector with values "I use functions from
+#'     existing R packages to analyze data" or \code{NA}}
+#'     \item{\code{Q13_B}}{A character vector with values "I write R code designed to
+#'     make my work easier, such as loops or conditionals or functions" or \code{NA}}
+#'     \item{\code{Q13_C}}{A character vector with values "I write R functions for
+#'     use by myself or my collaborators" or \code{NA}}
+#'     \item{\code{Q13_D}}{A character vector with values "I contribute to R
+#'     packages (on CRAN or elsewhere)" or \code{NA}}
+#'     \item{\code{Q13_E}}{A character vector with values "I have written my own R
+#'     package" or \code{NA}}
+#'     \item{\code{Q13_F}}{A character vector with values "I have written my own R
+#'     package and released it on CRAN or Bioconductor (or shared it on GitHub,
+#'     R-Forge or similar platforms)" or \code{NA}}
+#'     \item{\code{Q14}}{A factor with 3 levels: "Primarily as part of a job or
+#'     educational course;", "Primarily as a recreational activity, in your free
+#'     time;", "For both recreational and job/educational purposes."}
+#'     \item{\code{Q15}}{A factor with 5 levels: "Strongly disagree",
+#'     "Disagree", "No opinion", "Agree",  "Strongly agree"}
+#'     \item{\code{Q15_B}}{A factor with 5 levels: "Strongly disagree",
+#'     "Disagree", "No opinion", "Agree",  "Strongly agree"}
+#'     \item{\code{Q15_C}}{A factor with 5 levels: "Strongly disagree",
+#'     "Disagree", "No opinion", "Agree",  "Strongly agree"}
+#'     \item{\code{Q15_D}}{A factor with 5 levels: "Strongly disagree",
+#'     "Disagree", "No opinion", "Agree",  "Strongly agree"}
+#'     \item{\code{Q16}}{A factor with 2 levels: "Yes", "No"}
+#'     \item{\code{Q17}}{A factor with 21 levels: "Good for statistical analysis",
+#'     "Good for working with biological data structures", ...}
+#'     \item{\code{Q17_B}}{A character vector of free text response for when
+#'     \code{Q17 == "Other (please specify)"}}
+#'     \item{\code{Q18}}{A factor with 2 levels: "Yes", "No"}
+#'     \item{\code{Q19}}{A character vector with values "The R mailing lists" or
+#'     \code{NA}}
+#'     \item{\code{Q19_B}}{A character vector with values "The #rstats hashtag on
+#'     Twitter" or \code{NA}}
+#'     \item{\code{Q19_C}}{A character vector with values "The R StackOverflow
+#'     queues" or \code{NA}}
+#'     \item{\code{Q19_D}}{A character vector with values "The R IRC channel" or
+#'      \code{NA}}
+#'     \item{\code{Q19_E}}{A character vector with values "The rOpenSci mailing
+#'     lists or chat forums" or \code{NA}}
+#'     \item{\code{Q19_F}}{A character vector with values "The Bioconductor support
+#'     site" or \code{NA}}
+#'     \item{\code{Q19_G}}{A character vector with values "Other (please specify)"
+#'     or \code{NA}}
+#'     \item{\code{Q19_H}}{A character vector of free text response for when
+#'     \code{Q19_G == "Other (please specify)"}}
+#'     \item{\code{Q20}}{ A factor with 9 levels: "Twitter", "Facebook", "Google+",
+#'     ...}
+#'     \item{\code{Q20_B}}{A character vector of free text response for when
+#'     \code{Q20 == "Other (please specify)"}}
+#'     \item{\code{Q21}}{ A factor with 2 levels: "Yes", "No"}
+#'     \item{\code{Q22}}{A factor with 5 levels: "A general user group",
+#'     "A user group for women in R", "A user group within a university",
+#'     "A user group within a company", "Other (please specify)"}
+#'     \item{\code{Q22_B}}{A character vector of free text response for when
+#'     \code{Q22 == "Other (please specify)"}}
+#'     \item{\code{Q23}}{A factor with 6 levels: "There is no group nearby/the
+#'     group is inactive", "I am too busy", ...}
+#'     \item{\code{Q24}}{A character vector with values "New R user group near me
+#'      (specify location in comments box)" or \code{NA}}
+#'     \item{\code{Q24_B}}{A character vector with values "New R user group near
+#'     me aimed at my demographic (specify relevant group in comments box)" or
+#'     \code{NA}}
+#'     \item{\code{Q24_C}}{A character vector with values "Free local
+#'     introductory R workshops" or \code{NA}}
+#'     \item{\code{Q24_D}}{A character vector with values "Paid local advanced R
+#'      workshops" or \code{NA}}
+#'     \item{\code{Q24_E}}{A character vector with values "R workshop at
+#'     conference in my domain (specify domain/conference in comments box)" or
+#'      \code{NA}}
+#'     \item{\code{Q24_F}}{A character vector with values "R workshop aimed at
+#'     my demographic (specify relevant group in comments box)" or \code{NA}}
+#'     \item{\code{Q24_G}}{A character vector with values "Mentoring (e.g. first
+#'     CRAN submission/useR! abstract submission/GitHub contribution)" or
+#'     \code{NA}}
+#'     \item{\code{Q24_H}}{A character vector with values "Training in
+#'     non-English language (specify language in comments box)" or \code{NA}}
+#'     \item{\code{Q24_I}}{A character vector with values "Training that
+#'     accommodates my disability (specify disability in comments box)"
+#'     or \code{NA}}
+#'     \item{\code{Q24_J}}{A character vector with values "Online forum to
+#'     discuss R-related issues" or \code{NA}}
+#'     \item{\code{Q24_K}}{A character vector with values "Online support group
+#'     for my demographic (specify relevant group in comments box)" or
+#'     \code{NA}}
+#'     \item{\code{Q24_L}}{A character vector with values "Special facilities at
+#'      R conferences (give further detail in comments box)"}
+#' }
+#' @author Heather Turner and Oliver Keyes
+#' @references
+#' Bollmann, S., Cook, D., Debelak, R., Dumas, J., Fox, J., Josse, J.,
+#' Keyes, O., Strobl, C. and Turner, H. (2017) Mapping useRs
+#' \url{http://forwards.github.io/blog/2017/01/13/mapping-users/}.
+#'
+#' Bollmann, S., Cook, D., Debelak, R., Dumas, J., Fox, J., Josse, J.,
+#' Keyes, O., Strobl, C. and Turner, H. (2017) useRs Relationship with R
+#' \url{http://forwards.github.io/blog/2017/03/11/users-relationship-with-r/}.
+#'
+#' Josse, J. and Turner, H. (2017) useR! 2016 participants and R programming: a
+#' multivariate analysis
+#' \url{http://forwards.github.io/docs/MCA_programming_useR2016_survey/}.
+#'
+#' Josse, J. and Turner, H. (2017) useR! 2016 participants and the R community:
+#' a multivariate analysis
+#' \url{http://forwards.github.io/docs/MCA_community_useR2016_survey/}.
+#' @examples
+#' data(useR2016)
+#'
+#' # cross-tabulate age and length of time using R
+#' xtabs(~ Q3 + Q11, data = useR2016)
+#'
+#' # fit a logistic regression with "contribute to or write packages" predicted by
+#' # gender, length of R usage, employment status, previous programming experience
+#' response <- with(useR2016,
+#'     ifelse(!is.na(Q13_D) | !is.na(Q13_E) | !is.na(Q13_F), 1, 0))
+#' glm(response ~ Q2 + Q11 + Q8 + Q18, data = useR2016)
+"useR2016"
