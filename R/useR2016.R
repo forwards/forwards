@@ -233,8 +233,6 @@
 #' a multivariate analysis
 #' \url{http://forwards.github.io/docs/MCA_community_useR2016_survey/}.
 #' @examples
-#' data(useR2016)
-#'
 #' # cross-tabulate age and length of time using R
 #' xtabs(~ Q3 + Q11, data = useR2016)
 #'

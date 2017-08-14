@@ -215,8 +215,8 @@ following modifications were made
     \item{Q7}{Highest education level aggregated to two groups:
     "Doctorate/Professional" and "Masters and under"; highest education level
     suppressed for 3 individuals.}
-    \item{Q8}{Employment status aggregated to three groups: "Non-academic" (
-    includes employment in industry, government, non-profit, self-employed)
+    \item{Q8}{Employment status aggregated to three groups: "Non-academic"
+    (includes employment in industry, government, non-profit, self-employed)
     and "Academic" (includes retired, unemployed, student).}
     \item{Q11}{Length of R usage aggregated to four groups: combined groups
     corresponding to shortest times into "< 2 years" group.}
@@ -226,9 +226,7 @@ In addition specific values containing personal/personally identifiable
 information were suppressed in Q19_H, Q22_B and Q23_B.
 }
 \examples{
-data(useR2016)
-
-# cross-tabulate age a length of time using R
+# cross-tabulate age and length of time using R
 xtabs(~ Q3 + Q11, data = useR2016)
 
 # fit a logistic regression with "contribute to or write packages" predicted by
