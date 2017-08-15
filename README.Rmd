@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 
 # forwards
 
+[![Travis-CI Build Status](https://travis-ci.org/forwards/forwards.svg?branch=master)](https://travis-ci.org/forwards/forwards)
+
 The *forwards* package provides anonymised data from surveys conducted by [Forwards](http://forwards.github.io/), the R Foundation taskforce on women and other under-represented groups.
 
 ## Installation

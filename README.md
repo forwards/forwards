@@ -3,6 +3,8 @@
 forwards
 ========
 
+[![Travis-CI Build Status](https://travis-ci.org/forwards/forwards.svg?branch=master)](https://travis-ci.org/forwards/forwards)
+
 The *forwards* package provides anonymised data from surveys conducted by [Forwards](http://forwards.github.io/), the R Foundation taskforce on women and other under-represented groups.
 
 Installation
@@ -27,8 +29,8 @@ library(forwards)
 xtabs(~ Q3 + Q11, data = useR2016)
 #>              Q11
 #> Q3            < 2 years 2-5 years 5-10 years > 10 years
-#>   35 or under        22        27         52         92
-#>   > 35               42        80         71         20
+#>   > 35               22        27         54         92
+#>   35 or under        45        80         72         20
 ```
 
 Code of Conduct
