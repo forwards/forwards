@@ -120,7 +120,7 @@
 #' information were suppressed in Q19_H, Q22_B and Q23_B.
 #' @format A data frame with 449 records and 48 variables:
 #' \describe{
-#'     \item{\code{Q2}}{A factor with 3 levels: "Man", "Non-Binary/Unknown", "Woman".}
+#'     \item{\code{Q2}}{A factor with 3 levels: "Men", "Non-Binary/Unknown", "Women".}
 #'     \item{\code{Q3}}{A factor with 2 levels: "> 35", "35 or under"}
 #'     \item{\code{Q7}}{A factor with 2 levels: "Doctorate/Professional", "Masters or lower"}
 #'     \item{\code{Q8}}{A factor with 2 levels: "Non-academic", "Academic"}
@@ -237,7 +237,7 @@
 #' xtabs(~ Q3 + Q11, data = useR2016)
 #'
 #' # fit a logistic regression with "contribute to or write packages" predicted by
-#' # gender, length of R usage, employment status, previous programming experience
+#' # gender, length of R usage, employment status, and community belonging
 #' response <- with(useR2016,
 #'     ifelse(!is.na(Q13_D) | !is.na(Q13_E) | !is.na(Q13_F), 1, 0))
 #' glm(response ~ Q2 + Q11 + Q8 + Q18, data = useR2016)

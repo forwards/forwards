@@ -1,0 +1,208 @@
+---
+title: "Overview of forwards package"
+author: "Heather Turner"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Overview of forwards package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r knitr, include = FALSE}
+library(knitr)
+opts_chunk$set(message = FALSE, fig.align = "center",
+               fig.width = 7, fig.height = 5)
+```
+
+The **forwards** package provides anonymised data from surveys conducted by [Forwards](http://forwards.github.io/), the R Foundation taskforce on women and other under-represented groups. The package currently contains a single dataset, `useR2016`, with results from a survey of participants at the [useR! 2016](http://user2016.org/) conference. The questions and form of responses are described in the help file (`?useR2016`). This vignette provides a few examples of how to obtain equivalent results to those presented in reports on this survey (note it is not possible to reproduce the exact results in most cases, due to the aggregation necessary to protect respondent's privacy).
+
+This vignette uses the following packages:
+
+```{r, message = FALSE}
+library(dplyr)
+library(FactoMineR)
+library(forcats)
+library(ggplot2)
+library(knitr)
+library(likert)
+library(tidyr)
+library(forwards)
+```
+
+
+## Descriptive statistics
+
+Q7 gives the highest education level of the respondents. We can cross-tabulate this by gender (Q2) as follows:
+
+```{r}
+tab <- with(useR2016,
+            prop.table(table(Q7, Q2), margin = 2))
+kable(tab*100, digits = 1)
+```
+
+The results are missing for the non-binary/unknown group as all demographic variables have been suppressed for these individuals. The education levels have been aggregated into "Doctorate/Professional" and "Masters or lower" - this gives two groups of roughly similar size, also the Doctorate and Professional qualification groups were observed to be separated from the lower education groups (Master, Undergraduate, and High School or lower) in the multivariate analyses (see [useR! 2016 participants and R programming: a multivariate analysis](http://forwards.github.io/docs/MCA_programming_useR2016_survey/) and 
+[useR! 2016 participants and the R community: a multivariate analysis](http://forwards.github.io/docs/MCA_community_useR2016_survey/)). Even with this heavy aggregation, we can still observe the high proportion of people with advanced qualifications and the tendency for men to have higher qualifications than women (as noted in our reports, women attendees were generally younger than men). For more discussion of the respondent demographics, see 
+the blog post [mapping useRs](https://forwards.github.io/blog/2017/01/13/mapping-users/).
+
+Q15 asked respondent's opinions on several statements about R. The following code 
+collects these responses and shows the percentage in each opinion category for 
+each statement:
+
+```{r, message = FALSE, fig.width = 9, out.width = "100%"}
+ldat <- likert(useR2016[c("Q15", "Q15_B", "Q15_C", "Q15_D")])
+plot(ldat) +
+    scale_x_discrete(labels = 
+                       rev(c("fun", "considered cool/interesting\n by my peers",
+                             "difficult", "monotonous task"))) +
+    ggtitle("useR! 2016 attendees' opinions on writing R")
+```
+
+This plot was presented in the blog post [useRs relationship with R](https://forwards.github.io/blog/2017/03/11/users-relationship-with-r/) which
+covers all the programming related questions in the survey.
+
+Q24 asked respondents whether ceratin options would make them more likely to 
+participate in the R community, or improve their experience. The following code
+gathers all the responses together and summarises the percentage selecting each
+category, for men and women separately.
+
+```{r}
+dat <- useR2016 %>%
+    filter(Q2 %in% c("Men", "Women")) %>%
+    select(Q2, Q24, Q24_B, Q24_C, Q24_D, Q24_E, Q24_F, Q24_G, Q24_H, Q24_I, 
+           Q24_J, Q24_K, Q24_L) %>%
+    group_by(Q2) %>%
+    summarise_all(funs(Yes = sum(!is.na(.)),
+                       No = sum(is.na(.)))) %>%
+    gather(Response, Count, -Q2) %>%
+    separate(Response, c("Q", "Answer"), sep = "_(?=[^_]+$)") %>%
+    arrange(Q2, Q, Answer) %>%
+    group_by(Q2, Q) %>%
+    summarise(Yes = Count[2],
+              Percentage = Count[2]/sum(Count) * 100) %>%
+    filter(Yes > 4) %>%
+    mutate(Q = factor(Q, labels = 
+                        c("New R user group near me",#A
+                          "New R user group near me aimed at my demographic",#B
+                          "Free local introductory R workshops",#C
+                          "Paid local advanced R workshops",#D
+                          "R workshop at conference in my domain", #E
+                          "R workshop aimed at my demographic",#F
+                          "Mentoring (e.g. CRAN/useR! submission, GitHub contribution)", #G
+                          #"Training in non-English language",
+                          #"Training that accommodates my disability",
+                          "Online forum to discuss R-related issues", #J
+                          "Online support group for my demographic"#, #K
+                          #"Special facilities at R conferences"
+                          ))) 
+kable(dat, digits = 1)
+```
+
+Note that respondents could select multiple options so that the percentages
+to not add up to 100% for men and women. Also some options were not selected at 
+all and do not appear in the summary. The following code visualises these
+percentages:
+
+```{r, fig.width = 9, out.width = 7, out.width = "100%"}
+ggplot(dat, aes(x = fct_rev(Q),  y = Percentage, fill = Q2)) + 
+  geom_bar(stat = "identity", position = "dodge") +
+  coord_flip() + theme_minimal(base_family = "RobotoCondensed-Regular") +
+  labs(x = NULL, y = "%", title = "R programming level of useR! 2016 attendees", fill = NULL) +
+  scale_y_continuous(breaks = seq(0, 100, 20), limits = c(0, 100)) +
+  scale_fill_hue(h = c(110,250), direction = -1, breaks = c("Women", "Men"))
+```
+
+Men and women are equally interested in local user groups and free workshops, 
+but women are more interested than men in mentoring, online support groups and 
+workshops of all types. For more on the community questions in the survey, see 
+the blog post [useRs participation in the R community](http://forwards.github.io/blog/2017/06/19/users-participation-in-the-r-community/).
+
+## Logistic regression analysis
+
+Logistic regression analysis can be used to explore the relationships between
+contribution to the R project and other survey variables. For example, the 
+following code creates a contributor response, that is equal to 1 if respondents 
+have contributed to R packages on CRAN or elsewhere (Q13_D), have written their 
+own R package (Q13_E), or have written their own R package and 
+released it on CRAN or Bioconductor or shared it on GitHub, R-Forge or similar 
+platforms (Q13_F), and is equal to 0 otherwise. A logistic regression is then
+used to model this response by gender (Q2), length of R usage (Q11), employment 
+status (Q8) and whether the repondent feels a prt of the R community (Q18):
+
+```{r}
+response <- with(useR2016,
+    ifelse(!is.na(Q13_D) | !is.na(Q13_E) | !is.na(Q13_F), 1, 0))
+summary(glm(response ~ Q2 + Q11 + Q8 + Q18, data = useR2016))
+```
+This model suggests that women are slightly less likely to contribute, however
+more important factors are length of programming experience (more experience, 
+more likely to have contributed), type of employment (academic, including 
+retired, unemployed and student more likely to contribute) and sense of 
+belonging to the R community (people that do not feel part of the R community 
+are less likely to contribute). A working paper is in progress on this and 
+related models.
+
+## Multivariate analysis
+
+A multiple correspondence analysis may be used to explore multivariate 
+relationships between a set of questions. The following code considers questions
+relating to previous programming experience (Q12), how the respondent uses R
+(Q13) and why they use R (Q14). The demographic variables gender (Q2), age (Q3),
+highest education level (Q7) and employment type (Q8) are used as supplementary
+variables, that is they are not used to build the dimensions of variability, but
+projected *a posteriori* to aid interpretation.
+
+```{r, fig.height = 7}
+demo <- c("Q2", "Q3", "Q7", "Q8")
+suppl <- c(demo, "Q12")
+ruses <- c("Q11", "Q13", "Q13_B", "Q13_C", "Q13_D", "Q13_E", "Q13_F", "Q14")
+don.mca <- useR2016[, c(suppl, ruses)] %>%
+    mutate(Q12 = factor(ifelse(Q12 == "Yes", "prg_exp_yes", "prg_exp_no")),
+           Q13 = factor(ifelse(!is.na(Q13), "use_func_yes", "use_func_no")),
+           Q13_B = factor(ifelse(!is.na(Q13_B), "wrt_code_yes", "wrt_code_no")),
+           Q13_C = factor(ifelse(!is.na(Q13_C), "wrt_func_yes", "wrt_func_no")),
+           Q13_D = factor(ifelse(!is.na(Q13_D), "ctb_pkg_yes", "ctb_pkg_no")),
+           Q13_E = factor(ifelse(!is.na(Q13_E), "wrt_pkg_yes", "wrt_pkg_no")),
+           Q13_F = factor(ifelse(!is.na(Q13_F), "rel_pkg_yes", "wrt_rel_no")))
+rownames(don.mca) <- seq(nrow(don.mca))
+res.mca <- MCA(don.mca, graph =  FALSE, quali.sup =  seq(length(suppl)))
+plot(res.mca, invisible = c("ind", "quali.sup"), cex = 0.8)
+```
+
+The plot above summarises the main dimensions of variability in the responses to 
+the programming experience questions. Two categories are close on the graph when 
+individuals who have selected the first category also tend to select the other 
+category. The main feature of this plot is the gradient from bottom right to 
+top left, showing increasing experience and greater contribution, including in
+the respondents' free time.
+
+The following code then projects the demographic variables onto the same 
+dimensions
+
+```{r, fig.height = 7}
+res.dimdesc <- dimdesc(res.mca)  
+# demographic variables linked to the dimension 1 or 2 
+varselect <- 
+    demo[which(demo%in%unique(c(rownames(res.dimdesc$'Dim 1'$quali),
+                                rownames(res.dimdesc$'Dim 2'$quali))))]
+# vector with the categories for such demographic variables
+modeselect <- unlist(sapply(don.mca[, varselect],levels))      
+# discriminant categories for the position of the individuals on dimension 1 or 2
+modeselect <- modeselect[modeselect%in%unique(c(rownames(res.dimdesc$'Dim 1'$category),
+                                                rownames(res.dimdesc$'Dim 2'$category)))]
+plot(res.mca, invisible=c("ind", "var"), cex = 0.8,
+     selectMod = modeselect, autoLab = "yes",
+     xlim = c(-1.5,1.5), ylim = c(-1,1))
+```
+
+This shows that the more experienced programmers tend to be men working
+in academia. Further multivariate analysis of the programming questions can be 
+found in [useR! 2016 participants and R programming: a multivariate analysis](http://forwards.github.io/docs/MCA_programming_useR2016_survey/) 
+while a similar analysis of the community questions is reported in 
+[useR! 2016 participants and the R community: a multivariate analysis](http://forwards.github.io/docs/MCA_community_useR2016_survey/).
+
+
+
+
+
+
