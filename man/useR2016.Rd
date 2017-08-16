@@ -105,9 +105,12 @@
 useR2016
 }
 \description{
-This data set contains results from a survey of useR! 2016 attendees
-conducted by Forwards. Modifications made to anonymize the data are noted in
- Details.
+This data set contains results from a survey conducted by
+\href{http://forwards.github.io}{Forwards} of attendees at
+\href{http://user2016.org/}{useR! 2016}, the R
+user conference held at Stanford University, Stanford, California,
+June 27 - June 30 2016. Modifications made to anonymize the data are noted in
+Details.
 }
 \details{
 This data set contains responses to the following questions from the survey

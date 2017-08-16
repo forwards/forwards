@@ -1,4 +1,11 @@
+## Resubmission
+
+As requested the DESCRIPTION now describes when and where the (current) data
+were collected.
+
 ## Test environments
+
+(Re-tested with same results)
 
 * Local 
     * Ubuntu 14.04, R 3.4.1
