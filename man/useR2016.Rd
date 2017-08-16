@@ -106,7 +106,7 @@ useR2016
 }
 \description{
 This data set contains results from a survey of useR! 2016 attendees
-conducted by Forwards. Modifications made to anonymise the data are noted in
+conducted by Forwards. Modifications made to anonymize the data are noted in
  Details.
 }
 \details{

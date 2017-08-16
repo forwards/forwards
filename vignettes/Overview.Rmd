@@ -15,7 +15,7 @@ opts_chunk$set(message = FALSE, fig.align = "center",
                fig.width = 7, fig.height = 5)
 ```
 
-The **forwards** package provides anonymised data from surveys conducted by [Forwards](http://forwards.github.io/), the R Foundation taskforce on women and other under-represented groups. The package currently contains a single dataset, `useR2016`, with results from a survey of participants at the [useR! 2016](http://user2016.org/) conference. The questions and form of responses are described in the help file (`?useR2016`). This vignette provides a few examples of how to obtain equivalent results to those presented in reports on this survey (note it is not possible to reproduce the exact results in most cases, due to the aggregation necessary to protect respondent's privacy).
+The **forwards** package provides anonymized data from surveys conducted by [Forwards](http://forwards.github.io/), the R Foundation task force on women and other under-represented groups. The package currently contains a single data set, `useR2016`, with results from a survey of participants at the [useR! 2016](http://user2016.org/) conference. The questions and form of responses are described in the help file (`?useR2016`). This vignette provides a few examples of how to obtain equivalent results to those presented in reports on this survey (note it is not possible to reproduce the exact results in most cases, due to the aggregation necessary to protect respondent's privacy).
 
 This vignette uses the following packages:
 
@@ -61,9 +61,9 @@ plot(ldat) +
 This plot was presented in the blog post [useRs relationship with R](https://forwards.github.io/blog/2017/03/11/users-relationship-with-r/) which
 covers all the programming related questions in the survey.
 
-Q24 asked respondents whether ceratin options would make them more likely to 
+Q24 asked respondents whether certain options would make them more likely to 
 participate in the R community, or improve their experience. The following code
-gathers all the responses together and summarises the percentage selecting each
+gathers all the responses together and summarizes the percentage selecting each
 category, for men and women separately.
 
 ```{r}
@@ -72,13 +72,13 @@ dat <- useR2016 %>%
     select(Q2, Q24, Q24_B, Q24_C, Q24_D, Q24_E, Q24_F, Q24_G, Q24_H, Q24_I, 
            Q24_J, Q24_K, Q24_L) %>%
     group_by(Q2) %>%
-    summarise_all(funs(Yes = sum(!is.na(.)),
+    summarize_all(funs(Yes = sum(!is.na(.)),
                        No = sum(is.na(.)))) %>%
     gather(Response, Count, -Q2) %>%
     separate(Response, c("Q", "Answer"), sep = "_(?=[^_]+$)") %>%
     arrange(Q2, Q, Answer) %>%
     group_by(Q2, Q) %>%
-    summarise(Yes = Count[2],
+    summarize(Yes = Count[2],
               Percentage = Count[2]/sum(Count) * 100) %>%
     filter(Yes > 4) %>%
     mutate(Q = factor(Q, labels = 
@@ -100,13 +100,13 @@ kable(dat, digits = 1)
 
 Note that respondents could select multiple options so that the percentages
 to not add up to 100% for men and women. Also some options were not selected at 
-all and do not appear in the summary. The following code visualises these
+all and do not appear in the summary. The following code visualizes these
 percentages:
 
 ```{r, fig.width = 9, out.width = 7, out.width = "100%"}
 ggplot(dat, aes(x = fct_rev(Q),  y = Percentage, fill = Q2)) + 
   geom_bar(stat = "identity", position = "dodge") +
-  coord_flip() + theme_minimal(base_family = "RobotoCondensed-Regular") +
+  coord_flip() +
   labs(x = NULL, y = "%", title = "R programming level of useR! 2016 attendees", fill = NULL) +
   scale_y_continuous(breaks = seq(0, 100, 20), limits = c(0, 100)) +
   scale_fill_hue(h = c(110,250), direction = -1, breaks = c("Women", "Men"))
@@ -127,7 +127,7 @@ own R package (Q13_E), or have written their own R package and
 released it on CRAN or Bioconductor or shared it on GitHub, R-Forge or similar 
 platforms (Q13_F), and is equal to 0 otherwise. A logistic regression is then
 used to model this response by gender (Q2), length of R usage (Q11), employment 
-status (Q8) and whether the repondent feels a prt of the R community (Q18):
+status (Q8) and whether the respondent feels a part of the R community (Q18):
 
 ```{r}
 response <- with(useR2016,
@@ -169,7 +169,7 @@ res.mca <- MCA(don.mca, graph =  FALSE, quali.sup =  seq(length(suppl)))
 plot(res.mca, invisible = c("ind", "quali.sup"), cex = 0.8)
 ```
 
-The plot above summarises the main dimensions of variability in the responses to 
+The plot above summarizes the main dimensions of variability in the responses to 
 the programming experience questions. Two categories are close on the graph when 
 individuals who have selected the first category also tend to select the other 
 category. The main feature of this plot is the gradient from bottom right to 

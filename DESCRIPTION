@@ -1,12 +1,13 @@
 Package: forwards
 Type: Package
-Title: Data from Surveys conducted by Forwards
+Title: Data from Surveys Conducted by Forwards
 Version: 0.1.0
-Date: 2017-08-03
 Authors@R: c(person("Heather", "Turner", email =
         "ht@heatherturner.net", role = c("aut", "cre")),
         person("Oliver", "Keyes", role = "aut"))
-Description: Anonymised data from surveys conducted by Forwards, the R Foundation taskforce on women and other under-represented groups.
+Description: Anonymized data from surveys conducted by Forwards <http://forwards.github.io/>, the R Foundation task force on women and other under-represented groups.
+URL: https://github.com/forwards/forwards
+BugReports: https://github.com/forwards/forwards/issues
 License: CC0
 Encoding: UTF-8
 LazyData: TRUE
