@@ -2,7 +2,9 @@
 title: "Overview of forwards package"
 author: "Heather Turner"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Overview of forwards package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -31,7 +33,7 @@ library(forwards)
 ```
 
 
-## Descriptive statistics
+# Descriptive statistics
 
 Q7 gives the highest education level of the respondents. We can cross-tabulate this by gender (Q2) as follows:
 
