@@ -6,5 +6,5 @@
 \alias{forwards-package}
 \title{Data Released by Forwards}
 \description{
-\code{forwards} provides data sets released by \href{Forwards}{http://forwards.github.io/}, the R Foundation task force on women and other under-represented groups.
+\code{forwards} provides data sets released by \href{Forwards}{https://forwards.github.io/}, the R Foundation task force on women and other under-represented groups.
 }

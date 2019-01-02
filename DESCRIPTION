@@ -1,17 +1,17 @@
 Package: forwards
 Type: Package
 Title: Data from Surveys Conducted by Forwards
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(person("Heather", "Turner", email =
         "ht@heatherturner.net", role = c("aut", "cre")),
         person("Oliver", "Keyes", role = "aut"))
-Description: Anonymized data from surveys conducted by Forwards <http://forwards.github.io/>, the R Foundation task force on women and other under-represented groups. Currently, a single data set of responses to a survey of attendees at useR! 2016 <http://user2016.org/>, the R user conference held at Stanford University, Stanford, California, USA, June 27 - June 30 2016.
+Description: Anonymized data from surveys conducted by Forwards <https://forwards.github.io/>, the R Foundation task force on women and other under-represented groups. Currently, a single data set of responses to a survey of attendees at useR! 2016 <https://www.r-project.org/useR-2016/>, the R user conference held at Stanford University, Stanford, California, USA, June 27 - June 30 2016.
 URL: https://github.com/forwards/forwards
 BugReports: https://github.com/forwards/forwards/issues
 License: CC0
 Encoding: UTF-8
 LazyData: TRUE
 Depends: R (>= 2.10)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Suggests: dplyr, FactoMineR, forcats, ggplot2, knitr, likert, rmarkdown, tidyr
 VignetteBuilder: knitr

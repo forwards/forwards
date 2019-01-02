@@ -7,7 +7,7 @@
 Status](https://travis-ci.org/forwards/forwards.svg?branch=master)](https://travis-ci.org/forwards/forwards)
 
 The **forwards** package provides anonymized data from surveys conducted
-by [Forwards](http://forwards.github.io/), the R Foundation taskforce on
+by [Forwards](https://forwards.github.io/), the R Foundation taskforce on
 women and other under-represented groups.
 
 ## Installation
@@ -23,7 +23,7 @@ devtools::install_github("forwards/forwards")
 
 The package currently contains a single dataset, `useR2016`, with
 anonymized results from a survey of participants at the
-[useR\! 2016](http://user2016.org/) conference. The questions and form
+[useR\! 2016](https://www.r-project.org/useR-2016/) conference. The questions and form
 of responses are described in the help file (`?useR2016`).
 
 The dataset is lazy loaded, so after loading the **forwards** package,

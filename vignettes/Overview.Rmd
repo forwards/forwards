@@ -17,7 +17,7 @@ opts_chunk$set(message = FALSE, fig.align = "center",
                fig.width = 7, fig.height = 5)
 ```
 
-The **forwards** package provides anonymized data from surveys conducted by [Forwards](http://forwards.github.io/), the R Foundation task force on women and other under-represented groups. The package currently contains a single data set, `useR2016`, with results from a survey of participants at the [useR! 2016](http://user2016.org/) conference. The questions and form of responses are described in the help file (`?useR2016`). This vignette provides a few examples of how to obtain equivalent results to those presented in reports on this survey (note it is not possible to reproduce the exact results in most cases, due to the aggregation necessary to protect respondent's privacy).
+The **forwards** package provides anonymized data from surveys conducted by [Forwards](https://forwards.github.io/), the R Foundation task force on women and other under-represented groups. The package currently contains a single data set, `useR2016`, with results from a survey of participants at the [useR! 2016](https://www.r-project.org/useR-2016/) conference. The questions and form of responses are described in the help file (`?useR2016`). This vignette provides a few examples of how to obtain equivalent results to those presented in reports on this survey (note it is not possible to reproduce the exact results in most cases, due to the aggregation necessary to protect respondent's privacy).
 
 This vignette uses the following packages:
 
@@ -43,8 +43,8 @@ tab <- with(useR2016,
 kable(tab*100, digits = 1)
 ```
 
-The results are missing for the non-binary/unknown group as all demographic variables have been suppressed for these individuals. The education levels have been aggregated into "Doctorate/Professional" and "Masters or lower" - this gives two groups of roughly similar size, also the Doctorate and Professional qualification groups were observed to be separated from the lower education groups (Master, Undergraduate, and High School or lower) in the multivariate analyses (see [useR! 2016 participants and R programming: a multivariate analysis](http://forwards.github.io/docs/MCA_programming_useR2016_survey/) and 
-[useR! 2016 participants and the R community: a multivariate analysis](http://forwards.github.io/docs/MCA_community_useR2016_survey/)). Even with this heavy aggregation, we can still observe the high proportion of people with advanced qualifications and the tendency for men to have higher qualifications than women (as noted in our reports, women attendees were generally younger than men). For more discussion of the respondent demographics, see 
+The results are missing for the non-binary/unknown group as all demographic variables have been suppressed for these individuals. The education levels have been aggregated into "Doctorate/Professional" and "Masters or lower" - this gives two groups of roughly similar size, also the Doctorate and Professional qualification groups were observed to be separated from the lower education groups (Master, Undergraduate, and High School or lower) in the multivariate analyses (see [useR! 2016 participants and R programming: a multivariate analysis](https://forwards.github.io/docs/mca_programming_user2016_survey/) and 
+[useR! 2016 participants and the R community: a multivariate analysis](https://forwards.github.io/docs/mca_community_user2016_survey/)). Even with this heavy aggregation, we can still observe the high proportion of people with advanced qualifications and the tendency for men to have higher qualifications than women (as noted in our reports, women attendees were generally younger than men). For more discussion of the respondent demographics, see 
 the blog post [mapping useRs](https://forwards.github.io/blog/2017/01/13/mapping-users/).
 
 Q15 asked respondent's opinions on several statements about R. The following code 
@@ -118,7 +118,7 @@ ggplot(dat, aes(x = fct_rev(Q),  y = Percentage, fill = Q2)) +
 Men and women are equally interested in local user groups and free workshops, 
 but women are more interested than men in mentoring, online support groups and 
 workshops of all types. For more on the community questions in the survey, see 
-the blog post [useRs participation in the R community](http://forwards.github.io/blog/2017/06/19/users-participation-in-the-r-community/).
+the blog post [useRs participation in the R community](https://forwards.github.io/blog/2017/06/19/users-participation-in-the-r-community/).
 
 ## Logistic regression analysis
 
@@ -200,9 +200,9 @@ plot(res.mca, invisible=c("ind", "var"), cex = 0.8,
 
 This shows that the more experienced programmers tend to be men working
 in academia. Further multivariate analysis of the programming questions can be 
-found in [useR! 2016 participants and R programming: a multivariate analysis](http://forwards.github.io/docs/MCA_programming_useR2016_survey/) 
+found in [useR! 2016 participants and R programming: a multivariate analysis](https://forwards.github.io/docs/mca_programming_user2016_survey/) 
 while a similar analysis of the community questions is reported in 
-[useR! 2016 participants and the R community: a multivariate analysis](http://forwards.github.io/docs/MCA_community_useR2016_survey/).
+[useR! 2016 participants and the R community: a multivariate analysis](https://forwards.github.io/docs/mca_community_user2016_survey/).
 
 
 

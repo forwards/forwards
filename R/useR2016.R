@@ -1,8 +1,8 @@
 #' Data From useR! 2016 Survey
 #'
 #' This data set contains results from a survey conducted by
-#' \href{http://forwards.github.io}{Forwards} of attendees at
-#' \href{http://user2016.org/}{useR! 2016}, the R
+#' \href{https://forwards.github.io}{Forwards} of attendees at
+#' \href{https://www.r-project.org/useR-2016/}{useR! 2016}, the R
 #' user conference held at Stanford University, Stanford, California,
 #' June 27 - June 30 2016. Modifications made to anonymize the data are noted in
 #' Details.
@@ -222,19 +222,19 @@
 #' @references
 #' Bollmann, S., Cook, D., Debelak, R., Dumas, J., Fox, J., Josse, J.,
 #' Keyes, O., Strobl, C. and Turner, H. (2017) Mapping useRs
-#' \url{http://forwards.github.io/blog/2017/01/13/mapping-users/}.
+#' \url{https://forwards.github.io/blog/2017/01/13/mapping-users/}.
 #'
 #' Bollmann, S., Cook, D., Debelak, R., Dumas, J., Fox, J., Josse, J.,
 #' Keyes, O., Strobl, C. and Turner, H. (2017) useRs Relationship with R
-#' \url{http://forwards.github.io/blog/2017/03/11/users-relationship-with-r/}.
+#' \url{https://forwards.github.io/blog/2017/03/11/users-relationship-with-r/}.
 #'
 #' Josse, J. and Turner, H. (2017) useR! 2016 participants and R programming: a
 #' multivariate analysis
-#' \url{http://forwards.github.io/docs/MCA_programming_useR2016_survey/}.
+#' \url{https://forwards.github.io/docs/mca_programming_user2016_survey/}.
 #'
 #' Josse, J. and Turner, H. (2017) useR! 2016 participants and the R community:
 #' a multivariate analysis
-#' \url{http://forwards.github.io/docs/MCA_community_useR2016_survey/}.
+#' \url{https://forwards.github.io/docs/mca_community_user2016_survey/}.
 #' @examples
 #' # cross-tabulate age and length of time using R
 #' xtabs(~ Q3 + Q11, data = useR2016)
