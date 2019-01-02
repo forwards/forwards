@@ -74,14 +74,15 @@ dat <- useR2016 %>%
     select(Q2, Q24, Q24_B, Q24_C, Q24_D, Q24_E, Q24_F, Q24_G, Q24_H, Q24_I, 
            Q24_J, Q24_K, Q24_L) %>%
     group_by(Q2) %>%
-    summarize_all(funs(Yes = sum(!is.na(.)),
-                       No = sum(is.na(.)))) %>%
+    summarize_all(list(Yes = ~ sum(!is.na(.)),
+                       No = ~ sum(is.na(.)))) %>%
     gather(Response, Count, -Q2) %>%
     separate(Response, c("Q", "Answer"), sep = "_(?=[^_]+$)") %>%
     arrange(Q2, Q, Answer) %>%
     group_by(Q2, Q) %>%
     summarize(Yes = Count[2],
               Percentage = Count[2]/sum(Count) * 100) %>%
+    ungroup() %>%
     filter(Yes > 4) %>%
     mutate(Q = factor(Q, labels = 
                         c("New R user group near me",#A
