@@ -1,6 +1,10 @@
+# forwards 0.1.2
+
+* update vignette for compatibility with **FactoMineR** v. 1.4.2.
+
 # forwards 0.1.1
 
-* update for compatibility with **dplyr** v. 0.8.0.
+* update vignette for compatibility with **dplyr** v. 0.8.0.
 
 # forwards 0.1.0
 

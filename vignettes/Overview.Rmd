@@ -191,8 +191,10 @@ varselect <-
 # vector with the categories for such demographic variables
 modeselect <- unlist(sapply(don.mca[, varselect],levels))      
 # discriminant categories for the position of the individuals on dimension 1 or 2
-modeselect <- modeselect[modeselect%in%unique(c(rownames(res.dimdesc$'Dim 1'$category),
-                                                rownames(res.dimdesc$'Dim 2'$category)))]
+getlabel <- function(x) sub("[^=]+=(.*)", "\\1", x)
+lab1 <- getlabel(rownames(res.dimdesc$'Dim 1'$category))
+lab2 <- getlabel(rownames(res.dimdesc$'Dim 2'$category))
+modeselect <- modeselect[modeselect %in% unique(c(lab1, lab2))]
 plot(res.mca, invisible=c("ind", "var"), cex = 0.8,
      selectMod = modeselect, autoLab = "yes",
      xlim = c(-1.5,1.5), ylim = c(-1,1))
